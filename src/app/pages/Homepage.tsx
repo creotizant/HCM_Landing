@@ -394,7 +394,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={onGetStarted}
-                  className="group relative inline-flex items-center justify-center gap-2 rounded-xl sm:rounded-2xl bg-slate-900 px-6 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold text-white shadow-xl shadow-slate-900/10 hover:shadow-2xl hover:shadow-slate-900/20 transition-all duration-300"
+                  className="group relative inline-flex items-center justify-center gap-2 rounded-xl sm:rounded-2xl bg-slate-900 px-6 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold text-white shadow-xl shadow-slate-900/10 hover:shadow-2xl hover:shadow-slate-900/20 transition-all duration-300 w-full sm:w-auto"
                 >
                   <span className="relative z-10">{data.primaryCta}</span>
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform relative z-10" />
@@ -405,7 +405,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="button"
-                  className="group inline-flex items-center justify-center gap-2 rounded-xl sm:rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-sm px-6 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold text-slate-700 hover:bg-white hover:border-slate-300 hover:shadow-lg transition-all duration-300"
+                  className="group inline-flex items-center justify-center gap-2 rounded-xl sm:rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-sm px-6 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold text-slate-700 hover:bg-white hover:border-slate-300 hover:shadow-lg transition-all duration-300 w-full sm:w-auto"
                 >
                   <div className="h-6 w-6 rounded-full bg-indigo-50 flex items-center justify-center group-hover:bg-indigo-100 transition-colors">
                     <Play className="h-3 w-3 text-indigo-600 fill-indigo-600" />
@@ -455,7 +455,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
               initial={{ opacity: 0, scale: 0.95, rotate: -2 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 1, delay: 0.2, type: "spring" }}
-              className="relative w-full h-[280px] sm:h-[350px] md:h-[420px] lg:h-[600px] xl:h-[700px] block perspective-1000 mt-6 sm:mt-8 lg:mt-0 order-first lg:order-last"
+              className="relative w-full max-w-[520px] sm:max-w-[600px] md:max-w-[680px] lg:max-w-none h-[240px] sm:h-[320px] md:h-[420px] lg:h-[600px] xl:h-[700px] block perspective-1000 mt-6 sm:mt-8 lg:mt-0 mx-auto lg:mx-0"
             >
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] sm:w-[110%] lg:w-[120%] h-[100%] sm:h-[110%] lg:h-[120%] bg-gradient-to-tr from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-[60px] sm:blur-[80px] lg:blur-[100px] rounded-full opacity-60 animate-pulse-slow" />
 
