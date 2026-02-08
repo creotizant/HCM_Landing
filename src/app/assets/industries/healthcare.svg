@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="Healthcare illustration">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eff6ff"/>
+      <stop offset="45%" stop-color="#f5f3ff"/>
+      <stop offset="100%" stop-color="#fdf2f8"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="50%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#db2777"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#0f172a" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1000" rx="72" fill="url(#bg)"/>
+
+  <!-- soft blobs -->
+  <circle cx="260" cy="260" r="190" fill="#60a5fa" opacity="0.18"/>
+  <circle cx="1330" cy="260" r="220" fill="#a78bfa" opacity="0.16"/>
+  <circle cx="1180" cy="790" r="240" fill="#fb7185" opacity="0.12"/>
+
+  <!-- card -->
+  <g filter="url(#shadow)">
+    <rect x="330" y="180" width="940" height="640" rx="44" fill="#ffffff" opacity="0.86"/>
+    <rect x="330" y="180" width="940" height="640" rx="44" fill="#0f172a" opacity="0.03"/>
+  </g>
+
+  <!-- header -->
+  <rect x="390" y="230" width="340" height="24" rx="12" fill="#cbd5e1"/>
+  <rect x="390" y="270" width="520" height="18" rx="9" fill="#e2e8f0"/>
+
+  <!-- cross icon -->
+  <g transform="translate(760 360)">
+    <rect x="-130" y="-130" width="260" height="260" rx="56" fill="url(#accent)"/>
+    <g fill="#ffffff">
+      <rect x="-22" y="-78" width="44" height="156" rx="18"/>
+      <rect x="-78" y="-22" width="156" height="44" rx="18"/>
+    </g>
+  </g>
+
+  <!-- vitals -->
+  <path d="M440 640 H560 L610 570 L690 710 L760 610 L825 660 L880 610 L940 640 H1160" fill="none" stroke="url(#accent)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+  <rect x="390" y="720" width="280" height="26" rx="13" fill="#e2e8f0"/>
+  <rect x="390" y="760" width="420" height="20" rx="10" fill="#cbd5e1"/>
+</svg>

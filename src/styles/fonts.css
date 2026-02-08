@@ -1,0 +1,17 @@
+/*
+	Global font declarations.
+
+	This project now prefers the "Gnarly" font everywhere.
+	- If the Gnarly font is installed on the OS, the local() src below will pick it up.
+	- If you want to ship the font with the app, add your .woff2/.woff files and replace
+		the src with url(...) entries (recommended).
+*/
+
+@font-face {
+	font-family: "Gnarly";
+	src: local("Gnarly"), local("GNARLY");
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+}
+
