@@ -351,22 +351,12 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
         ))}
       </div>
 
-      <section id="top" className="relative pt-24 sm:pt-28 md:pt-32 lg:pt-40 pb-8 sm:pb-12 lg:pb-16 overflow-hidden">
+      <section id="top" className="relative pt-20 sm:pt-24 md:pt-32 lg:pt-40 pb-8 sm:pb-12 lg:pb-16 overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
             {/* Text Content */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="space-y-5 sm:space-y-6 lg:space-y-8 text-center lg:text-left"
-            >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-                className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-white/60 backdrop-blur-md px-3 sm:px-4 py-1.5 text-xs sm:text-sm text-slate-600 shadow-sm hover:shadow-md hover:scale-105 transition-all cursor-default"
-              >
+            <div className="space-y-5 sm:space-y-6 lg:space-y-8 text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-white/60 backdrop-blur-md px-3 sm:px-4 py-1.5 text-xs sm:text-sm text-slate-600 shadow-sm hover:shadow-md hover:scale-105 transition-all cursor-default">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
@@ -374,9 +364,9 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                 <span className="font-medium bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                   {data.topBadge}
                 </span>
-                <span className="text-slate-300 hidden sm:inline">|</span>
-                <span className="text-slate-500 text-xs font-medium tracking-wide uppercase hidden sm:inline">AI-Powered HCM</span>
-              </motion.div>
+                <span className="text-slate-300">|</span>
+                <span className="text-slate-500 text-xs font-medium tracking-wide uppercase">AI-Powered HCM</span>
+              </div>
 
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.1]">
                 <span className="block text-slate-900">The Future of</span>
@@ -390,20 +380,16 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 justify-center lg:justify-start">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                <button
                   onClick={onGetStarted}
                   className="group relative inline-flex items-center justify-center gap-2 rounded-xl sm:rounded-2xl bg-slate-900 px-6 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold text-white shadow-xl shadow-slate-900/10 hover:shadow-2xl hover:shadow-slate-900/20 transition-all duration-300 w-full sm:w-auto"
                 >
                   <span className="relative z-10">{data.primaryCta}</span>
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform relative z-10" />
                   <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-0 blur-xl scale-90" />
-                </motion.button>
+                </button>
 
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                <button
                   type="button"
                   className="group inline-flex items-center justify-center gap-2 rounded-xl sm:rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-sm px-6 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold text-slate-700 hover:bg-white hover:border-slate-300 hover:shadow-lg transition-all duration-300 w-full sm:w-auto"
                 >
@@ -411,33 +397,26 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                     <Play className="h-3 w-3 text-indigo-600 fill-indigo-600" />
                   </div>
                   {data.secondaryCta}
-                </motion.button>
+                </button>
               </div>
 
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 sm:gap-x-6 lg:gap-x-8 gap-y-2 sm:gap-y-3 pt-4 text-xs sm:text-sm text-slate-500">
                 {["No credit card required", "14-day free trial", "Cancel anytime"].map((item, i) => (
-                  <motion.div
+                  <div
                     key={item}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5 + i * 0.1 }}
                     className="inline-flex items-center gap-1.5 sm:gap-2"
                   >
                     <CheckCircle2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-500 flex-shrink-0" />
                     <span>{item}</span>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
 
               <div className="pt-6 sm:pt-8 border-t border-slate-100">
                 <div className="text-xs font-semibold tracking-wider text-slate-400 uppercase mb-3 sm:mb-4">Trusted by industry leaders</div>
-                <div className="relative overflow-hidden w-full mask-linear-fade">
-                  <motion.div
-                    animate={{ x: ["0%", "-50%"] }}
-                    transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-                    className="flex gap-4 sm:gap-6 lg:gap-8 whitespace-nowrap"
-                  >
-                    {[...data.logoCloud, ...data.logoCloud].map((x, idx) => (
+                <div className="w-full">
+                  <div className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 lg:gap-8">
+                    {data.logoCloud.map((x, idx) => (
                       <span
                         key={`${x}-${idx}`}
                         className="text-sm sm:text-base lg:text-lg font-bold text-slate-300 hover:text-slate-400 transition-colors cursor-default"
@@ -445,31 +424,27 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                         {x}
                       </span>
                     ))}
-                  </motion.div>
+                  </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Hero Image */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, rotate: -2 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1, delay: 0.2, type: "spring" }}
-              className="relative w-full max-w-[520px] sm:max-w-[600px] md:max-w-[680px] lg:max-w-none h-[240px] sm:h-[320px] md:h-[420px] lg:h-[600px] xl:h-[700px] block perspective-1000 mt-6 sm:mt-8 lg:mt-0 mx-auto lg:mx-0"
-            >
+            <div className="relative w-full max-w-[520px] sm:max-w-[600px] md:max-w-[680px] lg:max-w-none block mt-6 sm:mt-8 lg:mt-0 mx-auto lg:mx-0">
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] sm:w-[110%] lg:w-[120%] h-[100%] sm:h-[110%] lg:h-[120%] bg-gradient-to-tr from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-[60px] sm:blur-[80px] lg:blur-[100px] rounded-full opacity-60 animate-pulse-slow" />
 
               <motion.div
                 animate={{ y: [-5, 5, -5] }}
                 transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-                className="relative z-10 w-full h-full"
+                className="relative z-10 w-full"
               >
-                <div
-                  className="w-full h-full bg-contain bg-center lg:bg-right bg-no-repeat drop-shadow-2xl"
-                  style={{ backgroundImage: `url(${heroImage})` }}
+                <img
+                  src={heroImage}
+                  alt="Hero"
+                  className="w-full h-auto object-contain drop-shadow-2xl"
                 />
 
-                {/* Floating Elements - Hidden on small mobile, visible from sm breakpoint */}
+                {/* Floating Elements */}
                 <motion.div
                   animate={{ y: [10, -10, 10] }}
                   transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
@@ -504,9 +479,8 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                     </div>
                   </div>
                 </motion.div>
-
               </motion.div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -987,7 +961,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
       </section>
 
       {/* Legacy styles removed, using Tailwind + Motion */}
-    </div>
+    </div >
   );
 }
 
