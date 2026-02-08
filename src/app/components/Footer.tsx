@@ -1,8 +1,42 @@
 import React from 'react';
-import { Twitter, Linkedin, Facebook, Instagram } from 'lucide-react';
+import { Linkedin, Facebook, Instagram } from 'lucide-react';
 import logo from '@/app/assets/CreotizantMG-Gradient.png';
 
-export function Footer() {
+type Page = 'home' | 'products' | 'solutions' | 'industries' | 'platform' | 'why' | 'resources' | 'pricing' | 'demo' | 'contact' | string;
+
+interface FooterProps {
+  onNavigate: (page: Page) => void;
+}
+
+const footerSections = [
+  {
+    title: 'Platform',
+    links: [
+      { label: 'Products', page: 'products' },
+      { label: 'Platform', page: 'platform' },
+      { label: 'Solutions', page: 'solutions' },
+      { label: 'Industries', page: 'industries' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'Why Creotizant', page: 'why' },
+      { label: 'Pricing', page: 'pricing' },
+      { label: 'Contact Us', page: 'contact' },
+      { label: 'Request Demo', page: 'demo' },
+    ],
+  },
+  {
+    title: 'Resources',
+    links: [
+      { label: 'Resources', page: 'resources' },
+      { label: 'Homepage', page: 'home' },
+    ],
+  },
+];
+
+export function Footer({ onNavigate }: FooterProps) {
   return (
     <footer className="bg-slate-900 text-slate-300 py-16 border-t border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,38 +60,24 @@ export function Footer() {
             </div>
           </div>
 
-          <div>
-            <h4 className="font-semibold text-white mb-4">Platform</h4>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:text-indigo-400 transition-colors">Workforce Planning</a></li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors">Talent Acquisition</a></li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors">People & Onboarding</a></li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors">Payroll (UK)</a></li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors">Analytics Cloud</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold text-white mb-4">Company</h4>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:text-indigo-400 transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors">Careers</a></li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors">Customers</a></li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors">Partners</a></li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors">Newsroom</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold text-white mb-4">Resources</h4>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:text-indigo-400 transition-colors">Blog</a></li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors">Whitepapers</a></li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors">Webinars</a></li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors">Compliance Guide</a></li>
-              <li><a href="#" className="hover:text-indigo-400 transition-colors">Help Center</a></li>
-            </ul>
-          </div>
+          {footerSections.map((section) => (
+            <div key={section.title}>
+              <h4 className="font-semibold text-white mb-4">{section.title}</h4>
+              <ul className="space-y-2 text-sm">
+                {section.links.map((link) => (
+                  <li key={link.label}>
+                    <button
+                      type="button"
+                      onClick={() => onNavigate(link.page)}
+                      className="hover:text-indigo-400 transition-colors text-left"
+                    >
+                      {link.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
           <div>
             <h4 className="font-semibold text-white mb-4">Contact</h4>

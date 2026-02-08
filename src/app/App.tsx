@@ -64,7 +64,7 @@ export default function App() {
       <main>
         {renderPage()}
       </main>
-      <Footer />
+      <Footer onNavigate={setCurrentPage} />
     </div>
   );
 }
