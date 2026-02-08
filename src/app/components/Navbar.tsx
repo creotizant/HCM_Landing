@@ -233,12 +233,18 @@ export function Navbar({ currentPage, onNavigate }: NavbarProps) {
             </div>
 
             {/* Mobile menu button */}
-            <div className="lg:hidden flex items-center">
+            <div className="lg:hidden flex items-center gap-2">
+              <button
+                onClick={() => handleNav('demo')}
+                className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-full hover:bg-indigo-700 transition-colors"
+              >
+                Demo
+              </button>
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-slate-600 hover:text-slate-900 p-2 rounded-full hover:bg-slate-100"
+                className="p-2.5 rounded-full bg-slate-100 hover:bg-slate-200 transition-colors"
               >
-                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                <Menu className="w-5 h-5 text-slate-700" />
               </button>
             </div>
           </div>
@@ -248,50 +254,134 @@ export function Navbar({ currentPage, onNavigate }: NavbarProps) {
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-white/95 backdrop-blur-xl lg:hidden pt-24 px-6 overflow-y-auto"
-          >
-            <div className="flex flex-col space-y-6 pb-12">
-              <div className="space-y-4">
-                <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Product Suite</div>
-                <div className="grid grid-cols-1 gap-1 pl-2">
-                  {productsMenu.slice(0, 3).flatMap(g => g.items).map(item => ( // Show first few for brevity on mobile
-                    <button key={item.id} onClick={() => handleNav(item.id)} className="text-left py-2 text-lg font-medium text-slate-800 border-b border-slate-100 last:border-0">
-                      {item.name}
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm lg:hidden"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            
+            {/* Mobile Menu Panel */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed top-0 right-0 bottom-0 z-50 w-full max-w-sm bg-white shadow-2xl lg:hidden overflow-y-auto"
+            >
+              {/* Mobile Menu Header */}
+              <div className="sticky top-0 z-10 bg-white border-b border-slate-100 px-5 py-4 flex items-center justify-between">
+                <div className="flex items-center gap-2" onClick={() => { handleNav('home'); }}>
+                  <img src={logo} alt="Logo" className="h-7 w-auto" />
+                  <span className="font-bold text-lg text-slate-900">
+                    Creotizant<span className="text-indigo-600">HCM</span>
+                  </span>
+                </div>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 transition-colors"
+                >
+                  <X className="w-5 h-5 text-slate-600" />
+                </button>
+              </div>
+
+              {/* Mobile Menu Content */}
+              <div className="px-5 py-6 space-y-6">
+                {/* Main Navigation Links */}
+                <div className="space-y-1">
+                  {[
+                    { id: 'products', label: 'Products' },
+                    { id: 'solutions', label: 'Solutions' },
+                    { id: 'industries', label: 'Industries' },
+                    { id: 'platform', label: 'Platform' },
+                    { id: 'why', label: 'Why Creotizant' },
+                    { id: 'pricing', label: 'Pricing' },
+                  ].map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => handleNav(item.id as Page)}
+                      className={cn(
+                        "w-full text-left px-4 py-3.5 rounded-xl text-base font-medium transition-all flex items-center justify-between",
+                        currentPage === item.id
+                          ? "bg-indigo-50 text-indigo-700"
+                          : "text-slate-700 hover:bg-slate-50 active:bg-slate-100"
+                      )}
+                    >
+                      {item.label}
+                      <ArrowRight className="w-4 h-4 opacity-40" />
                     </button>
                   ))}
-                  <button onClick={() => handleNav('products')} className="text-left py-2 text-sm font-semibold text-indigo-600">
-                    View all products...
+                </div>
+
+                {/* Divider */}
+                <div className="border-t border-slate-100" />
+
+                {/* Popular Products Section */}
+                <div className="space-y-3">
+                  <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider px-4">Popular Products</h3>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[
+                      { name: "HirelyAI", id: "hirely-ai" },
+                      { name: "PayCore UK", id: "pay-core-uk" },
+                      { name: "PeopleHub", id: "people-hub" },
+                      { name: "PerformEdge", id: "perform-edge" },
+                    ].map((item) => (
+                      <button
+                        key={item.id}
+                        onClick={() => handleNav(item.id)}
+                        className="px-3 py-2.5 bg-slate-50 hover:bg-slate-100 rounded-lg text-sm font-medium text-slate-700 text-left transition-colors"
+                      >
+                        {item.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Divider */}
+                <div className="border-t border-slate-100" />
+
+                {/* Contact & Support */}
+                <div className="space-y-2">
+                  <button
+                    onClick={() => handleNav('contact')}
+                    className="w-full text-left px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors flex items-center gap-3"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center">
+                      <Globe className="w-4 h-4 text-slate-500" />
+                    </div>
+                    Contact Sales
+                  </button>
+                </div>
+
+                {/* CTA Buttons */}
+                <div className="space-y-3 pt-4">
+                  <button
+                    onClick={() => handleNav('demo')}
+                    className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-base font-semibold shadow-lg shadow-indigo-200 transition-all active:scale-[0.98]"
+                  >
+                    Book a Demo
+                  </button>
+                  <button
+                    onClick={() => handleNav('demo')}
+                    className="w-full py-3.5 border-2 border-slate-200 hover:border-slate-300 text-slate-700 rounded-xl text-base font-medium transition-all active:scale-[0.98]"
+                  >
+                    Start Free Trial
                   </button>
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Explore</div>
-                {['solutions', 'industries', 'platform', 'why', 'pricing', 'contact'].map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => handleNav(item as Page)}
-                    className="text-left text-2xl font-bold text-slate-900 capitalize"
-                  >
-                    {item === 'contact' ? 'Contact Us' : item}
-                  </button>
-                ))}
+              {/* Mobile Menu Footer */}
+              <div className="border-t border-slate-100 px-5 py-4 bg-slate-50">
+                <p className="text-xs text-slate-500 text-center">
+                  © 2026 Creotizant. All rights reserved.
+                </p>
               </div>
-
-              <div className="pt-8">
-                <button
-                  onClick={() => handleNav('demo')}
-                  className="w-full py-4 bg-indigo-600 text-white rounded-xl text-lg font-bold shadow-xl shadow-indigo-200"
-                >
-                  Book a Demo
-                </button>
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
