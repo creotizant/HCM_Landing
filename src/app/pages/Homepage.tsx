@@ -351,20 +351,21 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
         ))}
       </div>
 
-      <section id="top" className="relative pt-30 lg:pt-45 pb-12 lg:pb-18 overflow-hidden">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <section id="top" className="relative pt-24 sm:pt-28 md:pt-32 lg:pt-40 pb-8 sm:pb-12 lg:pb-16 overflow-hidden">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+            {/* Text Content */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="space-y-8"
+              className="space-y-5 sm:space-y-6 lg:space-y-8 text-center lg:text-left"
             >
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
-                className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-white/60 backdrop-blur-md px-4 py-1.5 text-sm text-slate-600 shadow-sm hover:shadow-md hover:scale-105 transition-all cursor-default"
+                className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-white/60 backdrop-blur-md px-3 sm:px-4 py-1.5 text-xs sm:text-sm text-slate-600 shadow-sm hover:shadow-md hover:scale-105 transition-all cursor-default"
               >
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
@@ -373,38 +374,38 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                 <span className="font-medium bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                   {data.topBadge}
                 </span>
-                <span className="text-slate-300">|</span>
-                <span className="text-slate-500 text-xs font-medium tracking-wide uppercase">AI-Powered HCM</span>
+                <span className="text-slate-300 hidden sm:inline">|</span>
+                <span className="text-slate-500 text-xs font-medium tracking-wide uppercase hidden sm:inline">AI-Powered HCM</span>
               </motion.div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.1]">
                 <span className="block text-slate-900">The Future of</span>
                 <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-gradient-x">
                   Workforce Intelligence
                 </span>
               </h1>
 
-              <p className="text-lg lg:text-xl text-slate-600 leading-relaxed max-w-xl">
+              <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-xl mx-auto lg:mx-0">
                 {data.subhead}
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 justify-center lg:justify-start">
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={onGetStarted}
-                  className="group relative inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-900 px-8 py-4 text-sm font-semibold text-white shadow-xl shadow-slate-900/10 hover:shadow-2xl hover:shadow-slate-900/20 transition-all duration-300"
+                  className="group relative inline-flex items-center justify-center gap-2 rounded-xl sm:rounded-2xl bg-slate-900 px-6 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold text-white shadow-xl shadow-slate-900/10 hover:shadow-2xl hover:shadow-slate-900/20 transition-all duration-300"
                 >
                   <span className="relative z-10">{data.primaryCta}</span>
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform relative z-10" />
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-0 blur-xl scale-90" />
+                  <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-0 blur-xl scale-90" />
                 </motion.button>
 
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   type="button"
-                  className="group inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-sm px-8 py-4 text-sm font-semibold text-slate-700 hover:bg-white hover:border-slate-300 hover:shadow-lg transition-all duration-300"
+                  className="group inline-flex items-center justify-center gap-2 rounded-xl sm:rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-sm px-6 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold text-slate-700 hover:bg-white hover:border-slate-300 hover:shadow-lg transition-all duration-300"
                 >
                   <div className="h-6 w-6 rounded-full bg-indigo-50 flex items-center justify-center group-hover:bg-indigo-100 transition-colors">
                     <Play className="h-3 w-3 text-indigo-600 fill-indigo-600" />
@@ -413,33 +414,33 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                 </motion.button>
               </div>
 
-              <div className="flex flex-wrap items-center gap-x-8 gap-y-3 pt-4 text-sm text-slate-500">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 sm:gap-x-6 lg:gap-x-8 gap-y-2 sm:gap-y-3 pt-4 text-xs sm:text-sm text-slate-500">
                 {["No credit card required", "14-day free trial", "Cancel anytime"].map((item, i) => (
                   <motion.div
                     key={item}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 + i * 0.1 }}
-                    className="inline-flex items-center gap-2"
+                    className="inline-flex items-center gap-1.5 sm:gap-2"
                   >
-                    <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-                    {item}
+                    <CheckCircle2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-500 flex-shrink-0" />
+                    <span>{item}</span>
                   </motion.div>
                 ))}
               </div>
 
-              <div className="pt-8 border-t border-slate-100">
-                <div className="text-xs font-semibold tracking-wider text-slate-400 uppercase mb-4">Trusted by industry leaders</div>
+              <div className="pt-6 sm:pt-8 border-t border-slate-100">
+                <div className="text-xs font-semibold tracking-wider text-slate-400 uppercase mb-3 sm:mb-4">Trusted by industry leaders</div>
                 <div className="relative overflow-hidden w-full mask-linear-fade">
                   <motion.div
                     animate={{ x: ["0%", "-50%"] }}
                     transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-                    className="flex gap-8 whitespace-nowrap"
+                    className="flex gap-4 sm:gap-6 lg:gap-8 whitespace-nowrap"
                   >
                     {[...data.logoCloud, ...data.logoCloud].map((x, idx) => (
                       <span
                         key={`${x}-${idx}`}
-                        className="text-lg font-bold text-slate-300 hover:text-slate-400 transition-colors cursor-default"
+                        className="text-sm sm:text-base lg:text-lg font-bold text-slate-300 hover:text-slate-400 transition-colors cursor-default"
                       >
                         {x}
                       </span>
@@ -449,40 +450,41 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
               </div>
             </motion.div>
 
+            {/* Hero Image */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95, rotate: -2 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 1, delay: 0.2, type: "spring" }}
-              className="relative w-full h-[300px] sm:h-[400px] lg:h-[700px] block perspective-1000 mt-12 lg:mt-0"
+              className="relative w-full h-[280px] sm:h-[350px] md:h-[420px] lg:h-[600px] xl:h-[700px] block perspective-1000 mt-6 sm:mt-8 lg:mt-0 order-first lg:order-last"
             >
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-[100px] rounded-full opacity-60 animate-pulse-slow" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] sm:w-[110%] lg:w-[120%] h-[100%] sm:h-[110%] lg:h-[120%] bg-gradient-to-tr from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-[60px] sm:blur-[80px] lg:blur-[100px] rounded-full opacity-60 animate-pulse-slow" />
 
               <motion.div
-                animate={{ y: [-10, 10, -10] }}
+                animate={{ y: [-5, 5, -5] }}
                 transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
                 className="relative z-10 w-full h-full"
               >
                 <div
-                  className="w-full h-full bg-contain bg-right bg-no-repeat drop-shadow-2xl"
+                  className="w-full h-full bg-contain bg-center lg:bg-right bg-no-repeat drop-shadow-2xl"
                   style={{ backgroundImage: `url(${heroImage})` }}
                 />
 
-                {/* Floating Elements */}
+                {/* Floating Elements - Hidden on small mobile, visible from sm breakpoint */}
                 <motion.div
                   animate={{ y: [10, -10, 10] }}
                   transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
-                  className="absolute -left-12 top-1/3 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/50 max-w-xs"
+                  className="hidden sm:block absolute left-0 md:-left-4 lg:-left-8 xl:-left-12 top-1/4 sm:top-1/3 bg-white/90 backdrop-blur-md p-2.5 sm:p-3 lg:p-4 rounded-xl lg:rounded-2xl shadow-xl border border-white/50 max-w-[160px] sm:max-w-[180px] lg:max-w-xs"
                 >
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="h-8 w-8 rounded-lg bg-green-100 flex items-center justify-center">
-                      <Users className="h-4 w-4 text-green-600" />
+                  <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2">
+                    <div className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
+                      <Users className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4 text-green-600" />
                     </div>
-                    <div>
-                      <div className="text-xs text-slate-500">New Hires</div>
-                      <div className="text-sm font-bold text-slate-900">+12 this week</div>
+                    <div className="min-w-0">
+                      <div className="text-[10px] sm:text-xs text-slate-500">New Hires</div>
+                      <div className="text-xs sm:text-sm font-bold text-slate-900">+12 this week</div>
                     </div>
                   </div>
-                  <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                  <div className="h-1 sm:h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
                     <div className="h-full bg-green-500 w-3/4 rounded-full" />
                   </div>
                 </motion.div>
@@ -490,15 +492,15 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                 <motion.div
                   animate={{ y: [-15, 15, -15] }}
                   transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.5 }}
-                  className="absolute -right-4 bottom-1/4 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/50"
+                  className="hidden sm:block absolute right-0 md:-right-2 lg:-right-4 bottom-1/4 sm:bottom-1/3 lg:bottom-1/4 bg-white/90 backdrop-blur-md p-2.5 sm:p-3 lg:p-4 rounded-xl lg:rounded-2xl shadow-xl border border-white/50"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center">
-                      <Sparkles className="h-5 w-5 text-purple-600" />
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                      <Sparkles className="h-4 w-4 sm:h-4.5 sm:w-4.5 lg:h-5 lg:w-5 text-purple-600" />
                     </div>
-                    <div>
-                      <div className="text-sm font-bold text-slate-900">AI Insights</div>
-                      <div className="text-xs text-slate-500">Optimization complete</div>
+                    <div className="min-w-0">
+                      <div className="text-xs sm:text-sm font-bold text-slate-900">AI Insights</div>
+                      <div className="text-[10px] sm:text-xs text-slate-500">Optimization complete</div>
                     </div>
                   </div>
                 </motion.div>
