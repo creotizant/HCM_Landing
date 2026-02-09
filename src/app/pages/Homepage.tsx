@@ -29,13 +29,7 @@ interface LandingPageProps {
   onNavigate: (page: string) => void;
 }
 
-/**
- * Creotizant HCM Suite — Premium Modern Landing Page
- * - Modern animations, hover effects, and micro-interactions
- * - Premium color schemes with gradients and glassmorphism
- * - Scroll-triggered animations
- * - Loading states and transitions
- */
+
 export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
   const [isLoading, setIsLoading] = useState(true);
 
