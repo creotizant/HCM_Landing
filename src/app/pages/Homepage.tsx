@@ -465,7 +465,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
               </div>
 
               <div className="pt-6 sm:pt-8 border-t border-slate-100">
-                <div className="text-xs font-semibold tracking-wider text-slate-400 uppercase mb-3 sm:mb-4">Trusted by industry leaders</div>
+                <div className="text-xs font-semibold tracking-wider text-slate-400 uppercase mb-3 sm:mb-4">Trusted by Industry leaders</div>
                 <div className="w-full">
                   <div className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 lg:gap-8">
                     {data.logoCloud.map((x, idx) => (
