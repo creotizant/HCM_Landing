@@ -353,9 +353,11 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
 
       <section id="top" className="relative pt-20 sm:pt-24 md:pt-32 lg:pt-40 pb-8 sm:pb-12 lg:pb-16 overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
-            {/* Text Content */}
-            <div className="space-y-5 sm:space-y-6 lg:space-y-8 text-center lg:text-left">
+          {/* Mobile Layout: Flex column with ordering | Desktop: Two-column grid */}
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 md:gap-12 lg:gap-16 items-center">
+
+            {/* Headline Section - Shows first on mobile */}
+            <div className="order-1 lg:order-none w-full text-center lg:text-left space-y-4 sm:space-y-5">
               <div className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-white/60 backdrop-blur-md px-3 sm:px-4 py-1.5 text-xs sm:text-sm text-slate-600 shadow-sm hover:shadow-md hover:scale-105 transition-all cursor-default">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
@@ -374,7 +376,63 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                   Workforce Intelligence
                 </span>
               </h1>
+            </div>
 
+            {/* Hero Image - Shows second on mobile, right side on desktop */}
+            <div className="order-2 lg:order-none relative w-full max-w-[520px] sm:max-w-[600px] md:max-w-[680px] lg:max-w-none block mx-auto lg:mx-0 lg:row-span-2">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] sm:w-[110%] lg:w-[120%] h-[100%] sm:h-[110%] lg:h-[120%] bg-gradient-to-tr from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-[60px] sm:blur-[80px] lg:blur-[100px] rounded-full opacity-60 animate-pulse-slow" />
+
+              <motion.div
+                animate={{ y: [-5, 5, -5] }}
+                transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+                className="relative z-10 w-full"
+              >
+                <img
+                  src={heroImage}
+                  alt="Hero"
+                  className="w-full h-auto object-contain drop-shadow-2xl"
+                />
+
+                {/* Floating Elements */}
+                <motion.div
+                  animate={{ y: [10, -10, 10] }}
+                  transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
+                  className="hidden sm:block absolute left-0 md:-left-4 lg:-left-8 xl:-left-12 top-1/4 sm:top-1/3 bg-white/90 backdrop-blur-md p-2.5 sm:p-3 lg:p-4 rounded-xl lg:rounded-2xl shadow-xl border border-white/50 max-w-[160px] sm:max-w-[180px] lg:max-w-xs"
+                >
+                  <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2">
+                    <div className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
+                      <Users className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4 text-green-600" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[10px] sm:text-xs text-slate-500">New Hires</div>
+                      <div className="text-xs sm:text-sm font-bold text-slate-900">+12 this week</div>
+                    </div>
+                  </div>
+                  <div className="h-1 sm:h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-green-500 w-3/4 rounded-full" />
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  animate={{ y: [-15, 15, -15] }}
+                  transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.5 }}
+                  className="hidden sm:block absolute right-0 md:-right-2 lg:-right-4 bottom-1/4 sm:bottom-1/3 lg:bottom-1/4 bg-white/90 backdrop-blur-md p-2.5 sm:p-3 lg:p-4 rounded-xl lg:rounded-2xl shadow-xl border border-white/50"
+                >
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                      <Sparkles className="h-4 w-4 sm:h-4.5 sm:w-4.5 lg:h-5 lg:w-5 text-purple-600" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-xs sm:text-sm font-bold text-slate-900">AI Insights</div>
+                      <div className="text-[10px] sm:text-xs text-slate-500">Optimization complete</div>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </div>
+
+            {/* Content Section - Shows third on mobile (after image) */}
+            <div className="order-3 lg:order-none w-full text-center lg:text-left space-y-5 sm:space-y-6">
               <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-xl mx-auto lg:mx-0">
                 {data.subhead}
               </p>
@@ -427,59 +485,6 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Hero Image */}
-            <div className="relative w-full max-w-[520px] sm:max-w-[600px] md:max-w-[680px] lg:max-w-none block mt-6 sm:mt-8 lg:mt-0 mx-auto lg:mx-0">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] sm:w-[110%] lg:w-[120%] h-[100%] sm:h-[110%] lg:h-[120%] bg-gradient-to-tr from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-[60px] sm:blur-[80px] lg:blur-[100px] rounded-full opacity-60 animate-pulse-slow" />
-
-              <motion.div
-                animate={{ y: [-5, 5, -5] }}
-                transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-                className="relative z-10 w-full"
-              >
-                <img
-                  src={heroImage}
-                  alt="Hero"
-                  className="w-full h-auto object-contain drop-shadow-2xl"
-                />
-
-                {/* Floating Elements */}
-                <motion.div
-                  animate={{ y: [10, -10, 10] }}
-                  transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
-                  className="hidden sm:block absolute left-0 md:-left-4 lg:-left-8 xl:-left-12 top-1/4 sm:top-1/3 bg-white/90 backdrop-blur-md p-2.5 sm:p-3 lg:p-4 rounded-xl lg:rounded-2xl shadow-xl border border-white/50 max-w-[160px] sm:max-w-[180px] lg:max-w-xs"
-                >
-                  <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2">
-                    <div className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
-                      <Users className="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4 text-green-600" />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-[10px] sm:text-xs text-slate-500">New Hires</div>
-                      <div className="text-xs sm:text-sm font-bold text-slate-900">+12 this week</div>
-                    </div>
-                  </div>
-                  <div className="h-1 sm:h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-green-500 w-3/4 rounded-full" />
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  animate={{ y: [-15, 15, -15] }}
-                  transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.5 }}
-                  className="hidden sm:block absolute right-0 md:-right-2 lg:-right-4 bottom-1/4 sm:bottom-1/3 lg:bottom-1/4 bg-white/90 backdrop-blur-md p-2.5 sm:p-3 lg:p-4 rounded-xl lg:rounded-2xl shadow-xl border border-white/50"
-                >
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <div className="h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
-                      <Sparkles className="h-4 w-4 sm:h-4.5 sm:w-4.5 lg:h-5 lg:w-5 text-purple-600" />
-                    </div>
-                    <div className="min-w-0">
-                      <div className="text-xs sm:text-sm font-bold text-slate-900">AI Insights</div>
-                      <div className="text-[10px] sm:text-xs text-slate-500">Optimization complete</div>
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
             </div>
           </div>
         </div>
