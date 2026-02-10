@@ -13,12 +13,17 @@ import { RequestDemo } from '@/app/pages/RequestDemo';
 import { ProductDetail } from '@/app/pages/ProductDetail';
 import { ContactUs } from '@/app/pages/ContactUs';
 import { productsData } from '@/app/data/products';
+import { initEmailJS } from '@/app/lib/emailjs';
 
 // Helper type to include product IDs
 type Page = 'home' | 'products' | 'solutions' | 'industries' | 'platform' | 'why' | 'resources' | 'pricing' | 'demo' | 'contact' | string;
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
+
+  useEffect(() => {
+    initEmailJS();
+  }, []);
 
   // Scroll to top on navigation
   useEffect(() => {

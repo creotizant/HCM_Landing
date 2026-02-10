@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { MapPin, Phone, Mail, Send, CheckCircle2 } from 'lucide-react';
 import { Input } from '@/app/components/ui/input';
 import { Textarea } from '@/app/components/ui/textarea';
+import { sendContactMessage } from '@/app/lib/emailjs';
 
 export function ContactUs() {
   const [submitted, setSubmitted] = useState(false);
@@ -12,14 +13,26 @@ export function ContactUs() {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSending, setIsSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setSubmitted(false);
+    setIsSending(true);
+    setError(null);
+
+    try {
+      await sendContactMessage(formData);
+      setSubmitted(true);
       setFormData({ name: '', email: '', message: '' });
-    }, 3000);
+      // Reset success message after 5 seconds
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      console.error('Failed to send message:', err);
+      setError('Failed to send message. Please try again later.');
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -32,9 +45,9 @@ export function ContactUs() {
   return (
     <div className="min-h-screen pt-24 pb-20 bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -47,9 +60,9 @@ export function ContactUs() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          
+
           {/* Contact Form */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -59,7 +72,7 @@ export function ContactUs() {
             <p className="text-slate-600 mb-8">We Usually Reply Within One Business Day.</p>
 
             {submitted ? (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="py-12 text-center"
@@ -119,19 +132,35 @@ export function ContactUs() {
                   />
                 </div>
 
+                {error && (
+                  <div className="p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
+                    {error}
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-all hover:shadow-lg hover:-translate-y-0.5 shadow-md shadow-indigo-200"
+                  disabled={isSending}
+                  className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-all hover:shadow-lg hover:-translate-y-0.5 shadow-md shadow-indigo-200 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  <Send className="w-5 h-5" />
-                  Send Message
+                  {isSending ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5" />
+                      Send Message
+                    </>
+                  )}
                 </button>
               </form>
             )}
           </motion.div>
 
           {/* Contact Information */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -144,7 +173,7 @@ export function ContactUs() {
 
             <div className="space-y-6">
               {/* Address */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
@@ -165,7 +194,7 @@ export function ContactUs() {
               </motion.div>
 
               {/* Phone */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
@@ -177,8 +206,8 @@ export function ContactUs() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-slate-900 mb-1">Phone</h3>
-                    <a 
-                      href="tel:+447831573818" 
+                    <a
+                      href="tel:+447831573818"
                       className="text-slate-600 hover:text-indigo-600 transition-colors"
                     >
                       +44 7831 573 818
@@ -188,7 +217,7 @@ export function ContactUs() {
               </motion.div>
 
               {/* Email */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 }}
@@ -200,8 +229,8 @@ export function ContactUs() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-slate-900 mb-1">Email</h3>
-                    <a 
-                      href="mailto:contact@creotizant.com" 
+                    <a
+                      href="mailto:contact@creotizant.com"
                       className="text-slate-600 hover:text-indigo-600 transition-colors break-all"
                     >
                       contact@creotizant.com
@@ -212,7 +241,7 @@ export function ContactUs() {
             </div>
 
             {/* Business Hours */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
@@ -238,7 +267,7 @@ export function ContactUs() {
         </div>
 
         {/* Additional CTA Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9 }}

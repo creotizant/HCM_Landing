@@ -188,7 +188,7 @@ export function Navbar({ currentPage, onNavigate }: NavbarProps) {
                           </div>
                         </div>
                         <button onClick={() => handleNav('demo')} className="flex items-center gap-2 text-indigo-600 font-semibold text-sm hover:underline">
-                          Explore the platform <ArrowRight className="h-4 w-4" />
+                          Explore The Platform <ArrowRight className="h-4 w-4" />
                         </button>
                       </div>
                     </motion.div>
@@ -264,7 +264,7 @@ export function Navbar({ currentPage, onNavigate }: NavbarProps) {
               className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm lg:hidden"
               onClick={() => setIsMobileMenuOpen(false)}
             />
-            
+
             {/* Mobile Menu Panel */}
             <motion.div
               initial={{ x: "100%" }}
@@ -363,7 +363,7 @@ export function Navbar({ currentPage, onNavigate }: NavbarProps) {
                     onClick={() => handleNav('demo')}
                     className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-base font-semibold shadow-lg shadow-indigo-200 transition-all active:scale-[0.98]"
                   >
-                    Book a Demo
+                    Book A Demo
                   </button>
                   <button
                     onClick={() => handleNav('demo')}

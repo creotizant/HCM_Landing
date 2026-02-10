@@ -2,13 +2,44 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { MockDashboard } from '@/app/components/MockDashboard';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
+import { sendDemoRequest } from '@/app/lib/emailjs';
 
 export function RequestDemo() {
   const [submitted, setSubmitted] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [formData, setFormData] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    company_name: '',
+    company_size: '50-250',
+    country: 'United Kingdom',
+    interest: 'Workforce Planning & Analytics'
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSending(true);
+    setError(null);
+
+    try {
+      await sendDemoRequest(formData);
+      setSubmitted(true);
+    } catch (err) {
+      console.error('Failed to send demo request:', err);
+      setError('Failed to send request. Please try again later.');
+    } finally {
+      setIsSending(false);
+    }
   };
 
   if (submitted) {
@@ -22,7 +53,7 @@ export function RequestDemo() {
           <p className="text-slate-600 mb-8">
             Thanks for your interest in Creotizant HCM. One of our solution consultants will be in touch within 24 hours to schedule your personalized demo.
           </p>
-          <button onClick={() => window.location.reload()} className="text-indigo-600 font-medium hover:underline">
+          <button onClick={() => window.location.href = '/'} className="text-indigo-600 font-medium hover:underline">
             Back to Home
           </button>
         </div>
@@ -79,28 +110,65 @@ export function RequestDemo() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">First Name</label>
-                  <input required type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all" placeholder="Jane" />
+                  <input
+                    required
+                    name="first_name"
+                    type="text"
+                    value={formData.first_name}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
+                    placeholder="Jane"
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">Last Name</label>
-                  <input required type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all" placeholder="Doe" />
+                  <input
+                    required
+                    name="last_name"
+                    type="text"
+                    value={formData.last_name}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
+                    placeholder="Doe"
+                  />
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">Work Email</label>
-                <input required type="email" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all" placeholder="jane@company.com" />
+                <input
+                  required
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
+                  placeholder="jane@company.com"
+                />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">Company Name</label>
-                <input required type="text" className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all" placeholder="Acme Corp" />
+                <input
+                  required
+                  name="company_name"
+                  type="text"
+                  value={formData.company_name}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
+                  placeholder="Acme Corp"
+                />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">Company Size</label>
-                  <select className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all bg-white">
+                  <select
+                    name="company_size"
+                    value={formData.company_size}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all bg-white"
+                  >
                     <option>50-250</option>
                     <option>251-1000</option>
                     <option>1001-5000</option>
@@ -109,7 +177,12 @@ export function RequestDemo() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-2">Country</label>
-                  <select className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all bg-white">
+                  <select
+                    name="country"
+                    value={formData.country}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all bg-white"
+                  >
                     <option>United Kingdom</option>
                     <option>United States</option>
                     <option>Europe (Other)</option>
@@ -120,7 +193,12 @@ export function RequestDemo() {
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">Primary Interest</label>
-                <select className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all bg-white">
+                <select
+                  name="interest"
+                  value={formData.interest}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all bg-white"
+                >
                   <option>Workforce Planning & Analytics</option>
                   <option>Talent Acquisition</option>
                   <option>Payroll & Compliance</option>
@@ -128,8 +206,27 @@ export function RequestDemo() {
                 </select>
               </div>
 
-              <button type="submit" className="w-full py-4 bg-indigo-600 text-white rounded-lg font-bold text-lg hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200 flex items-center justify-center">
-                Request Demo <ArrowRight className="ml-2 w-5 h-5" />
+              {error && (
+                <div className="p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm text-center">
+                  {error}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={isSending}
+                className="w-full py-4 bg-indigo-600 text-white rounded-lg font-bold text-lg hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200 flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {isSending ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    Request Demo <ArrowRight className="ml-2 w-5 h-5" />
+                  </>
+                )}
               </button>
 
               <p className="text-xs text-slate-500 text-center mt-4">

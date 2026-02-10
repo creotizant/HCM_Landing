@@ -41,16 +41,16 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
   const data = useMemo(
     () => ({
       topBadge: "Creotizant HCM Suite",
-      headline: "HR, recruiting, and workforce intelligence in one platform.",
+      headline: "HR, Recruitment, and Workforce Intelligence In One Platform.",
       subhead:
-        "Run hiring, people ops, compliance, payroll, and performance from a single source of truth. Add CreotizAI to move faster with better decisions.",
+        "Run Hiring, People Ops, Compliance, Payroll, and Performance From A Single Source Of Truth. Add CreotizAI To Move Faster With Better Decisions.",
       primaryCta: "Start Free Trial",
       secondaryCta: "Watch Product Tour",
-      kpisTopic: "At a glance",
+      kpisTopic: "At A Glance",
       kpis: [
-        { value: "16+", label: "Core modules", icon: Layers, color: "from-blue-500 to-cyan-500" },
+        { value: "16+", label: "Core Modules", icon: Layers, color: "from-blue-500 to-cyan-500" },
         { value: "99.9%", label: "Uptime SLA", icon: ShieldCheck, color: "from-emerald-500 to-teal-500" },
-        { value: "< 2 min", label: "Average setup", icon: Zap, color: "from-purple-500 to-pink-500" },
+        { value: "< 2 min", label: "Average Setup", icon: Zap, color: "from-purple-500 to-pink-500" },
         { value: "24/7", label: "Support", icon: LifeBuoy, color: "from-orange-500 to-red-500" },
       ],
       logoCloud: ["Acme Corp", "GlobalTech", "Innovate Inc", "FutureSoft", "Nexus Group", "Horizon Ltd"],
@@ -63,7 +63,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
               icon: Layers,
               title: "Workforce Planning",
               description: "Headcount plans, org modeling, skills forecasts, scenario runs.",
-              tag: "Scenario planning",
+              tag: "Scenario Planning",
               gradient: "from-blue-500 to-indigo-600",
               productId: "ai-workforce-planner",
             },
@@ -71,7 +71,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
               icon: Cpu,
               title: "Skills Intelligence",
               description: "Skills graph, gaps by team, role readiness, learning suggestions.",
-              tag: "Skills graph",
+              tag: "Skills Graph",
               gradient: "from-purple-500 to-pink-600",
               productId: "skill-forge",
             },
@@ -92,7 +92,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
               icon: Users,
               title: "Recruitment Suite",
               description: "Jobs, applicants, screening, interviews, offer workflows, onboarding.",
-              tag: "ATS + workflows",
+              tag: "ATS + Workflows",
               gradient: "from-emerald-500 to-green-600",
               productId: "recruit-flow",
             },
@@ -129,7 +129,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
               icon: Zap,
               title: "Workflows & Cases",
               description: "Requests, HR cases, approvals, and SLAs with full audit trails.",
-              tag: "Case mgmt",
+              tag: "Case Management",
               gradient: "from-yellow-500 to-orange-600",
               productId: "products",
             },
@@ -137,7 +137,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
               icon: Database,
               title: "Document Management",
               description: "Secure employee files, templates, e-sign, retention rules.",
-              tag: "Secure docs",
+              tag: "Secure Documents",
               gradient: "from-indigo-500 to-blue-600",
               productId: "people-hub",
             },
@@ -166,7 +166,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
               icon: Globe,
               title: "Integrations",
               description: "Connect HRIS, email/calendar, payroll, Slack, and internal tools.",
-              tag: "API-first",
+              tag: "API-First",
               gradient: "from-sky-500 to-blue-600",
               productId: "platform",
             },
@@ -177,58 +177,58 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
       outcomes: [
         {
           icon: Zap,
-          title: "Faster HR execution",
+          title: "Faster HR Execution",
           description: "Automate repetitive admin work and keep teams aligned with fewer tools.",
-          metric: "Save 40+ hrs/month",
+          metric: "Save 40+ Hours/Month",
           gradient: "from-yellow-400 to-orange-500",
         },
         {
           icon: BarChart3,
-          title: "Clear, credible reporting",
+          title: "Clear, Credible Reporting",
           description: "Real-time dashboards with traceable data and governance built in.",
-          metric: "One source of truth",
+          metric: "One Source Of Truth",
           gradient: "from-blue-400 to-cyan-500",
         },
         {
           icon: ShieldCheck,
-          title: "Audit-ready operations",
+          title: "Audit-Ready Operations",
           description: "Permissions, logs, and retention policies designed for compliance.",
-          metric: "Enterprise-grade",
+          metric: "Enterprise-Grade",
           gradient: "from-emerald-400 to-teal-500",
         },
       ],
 
       benefits: [
-        "Unified platform for hiring, people ops, performance, and analytics",
-        "CreotizAI insights to surface risks, gaps, and next-best actions",
-        "Role-based access control with full auditability",
-        "Configurable workflows, approvals, and automated reminders",
-        "Mobile-ready UX with clear IA and fast navigation",
-        "Integrations and API-first architecture for scale",
+        "Unified Platform for Hiring, People Ops, Performance, and Analytics",
+        "CreotizAI Insights to Surface Risks, Gaps, and Next-Best Actions",
+        "Role-Based Access Control with Full Auditability",
+        "Configurable Workflows, Approvals, and Automated Reminders",
+        "Mobile-Ready UX with Clear IA and Fast Navigation",
+        "Integrations and API-First Architecture for Scale",
       ],
 
       security: [
         {
           icon: ShieldCheck,
-          title: "RBAC + least-privilege access",
+          title: "RBAC + Least-Privilege Access",
           note: "Control who can see and do what, by role and scope.",
           gradient: "from-blue-500 to-indigo-600",
         },
         {
           icon: Lock,
-          title: "Encryption at rest and in transit",
+          title: "Encryption At Rest And In Transit",
           note: "Protect sensitive employee data across the full lifecycle.",
           gradient: "from-purple-500 to-pink-600",
         },
         {
           icon: Database,
-          title: "Audit logs and version history",
+          title: "Audit Logs and Version History",
           note: "Trace changes, actions, and document history.",
           gradient: "from-cyan-500 to-teal-600",
         },
         {
           icon: LifeBuoy,
-          title: "Backups + disaster recovery",
+          title: "Backups + Disaster Recovery",
           note: "Resilience designed into the operating model.",
           gradient: "from-emerald-500 to-green-600",
         },
@@ -365,7 +365,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
               </div>
 
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.1]">
-                <span className="block text-slate-900">The Future of</span>
+                <span className="block text-slate-900">The Future Of</span>
                 <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-gradient-x">
                   Workforce Intelligence
                 </span>
@@ -399,7 +399,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                     </div>
                     <div className="min-w-0">
                       <div className="text-[10px] sm:text-xs text-slate-500">New Hires</div>
-                      <div className="text-xs sm:text-sm font-bold text-slate-900">+12 this week</div>
+                      <div className="text-xs sm:text-sm font-bold text-slate-900">+12 This Week</div>
                     </div>
                   </div>
                   <div className="h-1 sm:h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
@@ -418,7 +418,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                     </div>
                     <div className="min-w-0">
                       <div className="text-xs sm:text-sm font-bold text-slate-900">AI Insights</div>
-                      <div className="text-[10px] sm:text-xs text-slate-500">Optimization complete</div>
+                      <div className="text-[10px] sm:text-xs text-slate-500">Optimization Complete</div>
                     </div>
                   </div>
                 </motion.div>
@@ -453,7 +453,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
               </div>
 
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 sm:gap-x-6 lg:gap-x-8 gap-y-2 sm:gap-y-3 pt-4 text-xs sm:text-sm text-slate-500">
-                {["No credit card required", "14-day free trial", "Cancel anytime"].map((item, i) => (
+                {["No Credit Card Required", "14-Day Free Trial", "Cancel Anytime"].map((item, i) => (
                   <div
                     key={item}
                     className="inline-flex items-center gap-1.5 sm:gap-2"
@@ -465,7 +465,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
               </div>
 
               <div className="pt-6 sm:pt-8 border-t border-slate-100">
-                <div className="text-xs font-semibold tracking-wider text-slate-400 uppercase mb-3 sm:mb-4">Trusted by Industry leaders</div>
+                <div className="text-xs font-semibold tracking-wider text-slate-400 uppercase mb-3 sm:mb-4">Trusted By Industry Leaders</div>
                 <div className="w-full">
                   <div className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 lg:gap-8">
                     {data.logoCloud.map((x, idx) => (
@@ -497,7 +497,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
             className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-2 text-sm text-white/90 shadow-sm mb-6"
           >
             <Award className="h-4 w-4 text-indigo-400" />
-            <span>World-class performance</span>
+            <span>World-Class Performance</span>
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 10 }}
@@ -506,7 +506,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
             transition={{ delay: 0.1 }}
             className="text-3xl lg:text-5xl font-bold tracking-tight mb-6"
           >
-            Trusted by <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">industry leaders</span>
+            Trusted By <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Industry Leaders</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
@@ -562,7 +562,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                 className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50/50 px-4 py-1.5 text-sm font-semibold text-indigo-700 mb-6"
               >
                 <Zap className="h-4 w-4" />
-                Modular suite, one data model
+                Modular Suite, One Data Model
               </motion.div>
 
               <motion.h2
@@ -595,7 +595,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
               transition={{ delay: 0.4 }}
               className="rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-6 lg:p-8 max-w-sm w-full shadow-lg"
             >
-              <div className="text-sm font-bold text-slate-900 mb-4 tracking-wide uppercase">What stays consistent</div>
+              <div className="text-sm font-bold text-slate-900 mb-4 tracking-wide uppercase">What Stays Consistent</div>
               <div className="grid gap-3">
                 {["RBAC + audit logs", "Workflow engine", "Real-time dashboards", "Integrations & API"].map((item, idx) => (
                   <motion.div
@@ -659,7 +659,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                         }}
                         className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors"
                       >
-                        Explore module
+                        Explore Module
                         <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-indigo-600 transition-colors" />
                       </motion.button>
                     </motion.div>
@@ -686,12 +686,12 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
             >
               <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-2 text-sm text-white/90 shadow-sm mb-6">
                 <Sparkles className="h-4 w-4 text-indigo-400" />
-                <span>Outcomes that compound</span>
+                <span>Outcomes That Compound</span>
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
-                Cleaner operations, <br />
+                Cleaner Operations, <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
-                  better decisions.
+                  Better Decisions.
                 </span>
               </h2>
               <p className="text-lg text-slate-300 leading-relaxed max-w-xl">
@@ -755,8 +755,8 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                 <div className="text-sm font-semibold text-indigo-300 mb-4 uppercase tracking-wider">In Practice</div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {[
-                    { title: "Update headcount plan", desc: "Dashboards, approvals, and forecasts update instantly." },
-                    { title: "Close a role", desc: "Pipeline metrics, capacity, and onboarding tasks adjust." },
+                    { title: "Update Headcount Plan", desc: "Dashboards, approvals, and forecasts update instantly." },
+                    { title: "Close A Role", desc: "Pipeline metrics, capacity, and onboarding tasks adjust." },
                   ].map((point, idx) => (
                     <div key={idx} className="space-y-1">
                       <div className="text-white font-medium">{point.title}</div>
@@ -783,12 +783,12 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
             >
               <div className="inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50 px-4 py-2 text-sm text-emerald-700 shadow-sm mb-6">
                 <ShieldCheck className="h-4 w-4" />
-                <span>Security and governance by design</span>
+                <span>Security And Governance By Design</span>
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-6">
-                Built for serious <br />
+                Built For Serious <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">
-                  HR data protection.
+                  HR Data Protection.
                 </span>
               </h2>
               <p className="text-lg text-slate-600 leading-relaxed max-w-xl mb-8">
@@ -850,7 +850,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
               className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white px-4 py-1.5 text-sm font-semibold text-indigo-700 shadow-sm mb-6"
             >
               <BarChart3 className="h-4 w-4" />
-              Simple plans that scale
+              Simple Plans That Scale
             </motion.div>
             <motion.h2
               initial={{ opacity: 0, y: 10 }}
@@ -943,7 +943,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                 <span>Support</span>
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-6">
-                Frequently asked <br /> questions
+                Frequently Asked <br /> Questions
               </h2>
               <p className="text-lg text-slate-600">
                 Can't find the answer you're looking for? Reach out to our support team.
