@@ -19,10 +19,12 @@ import {
   Globe,
 } from "lucide-react";
 import React, { useMemo, useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
+import noise from "@/app/assets/noise.svg";
 import heroImage from "@/app/assets/industries/1.png";
 import logo from "@/app/assets/CreotizantMG-Gradient.png";
 import { pricingPlans } from "@/app/pages/Pricing";
+import { ScrollReveal } from "@/app/components/ScrollReveal";
 
 interface LandingPageProps {
   onGetStarted: () => void;
@@ -31,12 +33,7 @@ interface LandingPageProps {
 
 
 export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 800);
-    return () => clearTimeout(timer);
-  }, []);
 
   const data = useMemo(
     () => ({
@@ -274,59 +271,32 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
 
   const particles = useMemo(
     () =>
-      [...Array(20)].map(() => ({
-        width: Math.random() * 300 + 100,
-        height: Math.random() * 300 + 100,
+      [...Array(12)].map(() => ({ // Reduced from 20 to 12 for better GPU performance
+        width: Math.random() * 250 + 50,
+        height: Math.random() * 250 + 50,
         left: Math.random() * 100,
         top: Math.random() * 100,
         animationDelay: Math.random() * 5,
-        animationDuration: Math.random() * 10 + 10,
+        animationDuration: Math.random() * 12 + 8,
       })),
     []
   );
 
   return (
     <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
-      <AnimatePresence>
-        {isLoading && (
-          <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="fixed inset-0 z-[100] bg-slate-950 flex items-center justify-center"
-          >
-            <div className="relative">
-              <div className="w-24 h-24 border-4 border-slate-800 border-t-indigo-500 rounded-full animate-spin" />
-              <div
-                className="absolute inset-0 w-24 h-24 border-4 border-transparent border-t-purple-500 rounded-full animate-spin"
-                style={{ animationDuration: "1.5s", animationDirection: "reverse" }}
-              />
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="absolute inset-0 flex items-center justify-center"
-              >
-                <div className="h-16 w-16 flex items-center justify-center">
-                  <img src={logo} alt="Loading..." className="w-full h-full object-contain" />
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
 
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-50 via-white to-white" />
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-multiply" />
+        <div className="absolute inset-0 opacity-20 brightness-100 contrast-150 mix-blend-multiply" style={{ backgroundImage: `url(${noise})` }} />
         {particles.map((p, i) => (
           <motion.div
             key={i}
             initial={{ y: 0, x: 0 }}
             animate={{
-              y: [0, -30, 0],
-              x: [0, 20, 0],
-              opacity: [0.3, 0.6, 0.3],
+              y: 0,
+              x: 0,
+              opacity: 0.4,
             }}
             transition={{
               duration: p.animationDuration,
@@ -352,46 +322,60 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
 
             {/* Headline Section - Shows first on mobile */}
             <div className="order-1 lg:order-none w-full text-center lg:text-left space-y-4 sm:space-y-5">
-              <div className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-white/60 backdrop-blur-md px-3 sm:px-4 py-1.5 text-xs sm:text-sm text-slate-600 shadow-sm hover:shadow-md hover:scale-105 transition-all cursor-default">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-                </span>
-                <span className="font-medium bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                  {data.topBadge}
-                </span>
-                <span className="text-slate-300">|</span>
-                <span className="text-slate-500 text-xs font-medium tracking-wide uppercase">AI-Powered HCM</span>
-              </div>
+              <ScrollReveal direction="down" distance={20} width="100%">
+                <div className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-white/60 backdrop-blur-md px-3 sm:px-4 py-1.5 text-xs sm:text-sm text-slate-600 shadow-sm hover:shadow-md hover:scale-105 transition-all cursor-default">
+                  <span className="relative flex h-2 w-2">
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                  </span>
+                  <span className="font-medium bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                    {data.topBadge}
+                  </span>
+                  <span className="text-slate-300">|</span>
+                  <span className="text-slate-500 text-xs font-medium tracking-wide uppercase">AI-Powered HCM</span>
+                </div>
+              </ScrollReveal>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.1]">
-                <span className="block text-slate-900">The Future Of</span>
-                <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-gradient-x">
-                  Workforce Intelligence
-                </span>
-              </h1>
+              <ScrollReveal delay={0.1} width="100%">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.1]">
+                  <span className="block text-slate-900">The Future Of</span>
+                  <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-gradient-x">
+                    Workforce Intelligence
+                  </span>
+                </h1>
+              </ScrollReveal>
             </div>
 
             {/* Hero Image - Shows second on mobile, right side on desktop */}
             <div className="order-2 lg:order-none relative w-full max-w-[520px] sm:max-w-[600px] md:max-w-[680px] lg:max-w-none block mx-auto lg:mx-0 lg:row-span-2">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] sm:w-[110%] lg:w-[120%] h-[100%] sm:h-[110%] lg:h-[120%] bg-gradient-to-tr from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-[60px] sm:blur-[80px] lg:blur-[100px] rounded-full opacity-60 animate-pulse-slow" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] sm:w-[110%] lg:w-[120%] h-[100%] sm:h-[110%] lg:h-[120%] bg-gradient-to-tr from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-[60px] sm:blur-[80px] lg:blur-[100px] rounded-full opacity-60" />
 
               <motion.div
-                animate={{ y: [-5, 5, -5] }}
-                transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
                 className="relative z-10 w-full"
+                animate={{ y: [0, -10, 0] }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
                 <img
                   src={heroImage}
                   alt="Hero"
                   className="w-full h-auto object-contain drop-shadow-2xl"
+                  loading="eager"
+                  fetchPriority="high"
                 />
 
                 {/* Floating Elements */}
                 <motion.div
-                  animate={{ y: [10, -10, 10] }}
-                  transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
                   className="hidden sm:block absolute left-0 md:-left-4 lg:-left-8 xl:-left-12 top-1/4 sm:top-1/3 bg-white/90 backdrop-blur-md p-2.5 sm:p-3 lg:p-4 rounded-xl lg:rounded-2xl shadow-xl border border-white/50 max-w-[160px] sm:max-w-[180px] lg:max-w-xs"
+                  animate={{ y: [0, -15, 0] }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.5,
+                  }}
                 >
                   <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2">
                     <div className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0">
@@ -408,9 +392,14 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
                 </motion.div>
 
                 <motion.div
-                  animate={{ y: [-15, 15, -15] }}
-                  transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 0.5 }}
                   className="hidden sm:block absolute right-0 md:-right-2 lg:-right-4 bottom-1/4 sm:bottom-1/3 lg:bottom-1/4 bg-white/90 backdrop-blur-md p-2.5 sm:p-3 lg:p-4 rounded-xl lg:rounded-2xl shadow-xl border border-white/50"
+                  animate={{ y: [0, -12, 0] }}
+                  transition={{
+                    duration: 4.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1,
+                  }}
                 >
                   <div className="flex items-center gap-2 sm:gap-3">
                     <div className="h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
@@ -427,58 +416,66 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
 
             {/* Content Section - Shows third on mobile (after image) */}
             <div className="order-3 lg:order-none w-full text-center lg:text-left space-y-5 sm:space-y-6">
-              <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                {data.subhead}
-              </p>
+              <ScrollReveal delay={0.2} width="100%">
+                <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                  {data.subhead}
+                </p>
+              </ScrollReveal>
 
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 justify-center lg:justify-start">
-                <button
-                  onClick={onGetStarted}
-                  className="group relative inline-flex items-center justify-center gap-2 rounded-xl sm:rounded-2xl bg-slate-900 px-6 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold text-white shadow-xl shadow-slate-900/10 hover:shadow-2xl hover:shadow-slate-900/20 transition-all duration-300 w-full sm:w-auto"
-                >
-                  <span className="relative z-10">{data.primaryCta}</span>
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform relative z-10" />
-                  <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-0 blur-xl scale-90" />
-                </button>
-
-                <button
-                  type="button"
-                  className="group inline-flex items-center justify-center gap-2 rounded-xl sm:rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-sm px-6 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold text-slate-700 hover:bg-white hover:border-slate-300 hover:shadow-lg transition-all duration-300 w-full sm:w-auto"
-                >
-                  <div className="h-6 w-6 rounded-full bg-indigo-50 flex items-center justify-center group-hover:bg-indigo-100 transition-colors">
-                    <Play className="h-3 w-3 text-indigo-600 fill-indigo-600" />
-                  </div>
-                  {data.secondaryCta}
-                </button>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 sm:gap-x-6 lg:gap-x-8 gap-y-2 sm:gap-y-3 pt-4 text-xs sm:text-sm text-slate-500">
-                {["No Credit Card Required", "14-Day Free Trial", "Cancel Anytime"].map((item, i) => (
-                  <div
-                    key={item}
-                    className="inline-flex items-center gap-1.5 sm:gap-2"
+              <ScrollReveal delay={0.3} width="100%">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 justify-center lg:justify-start">
+                  <button
+                    onClick={onGetStarted}
+                    className="group relative inline-flex items-center justify-center gap-2 rounded-xl sm:rounded-2xl bg-slate-900 px-6 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold text-white shadow-xl shadow-slate-900/10 hover:shadow-2xl hover:shadow-slate-900/20 transition-all duration-300 w-full sm:w-auto"
                   >
-                    <CheckCircle2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-500 flex-shrink-0" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
+                    <span className="relative z-10">{data.primaryCta}</span>
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform relative z-10" />
+                    <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-0 blur-xl scale-90" />
+                  </button>
 
-              <div className="pt-6 sm:pt-8 border-t border-slate-100">
-                <div className="text-xs font-semibold tracking-wider text-slate-400 uppercase mb-3 sm:mb-4">Trusted By Industry Leaders</div>
-                <div className="w-full">
-                  <div className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 lg:gap-8">
-                    {data.logoCloud.map((x, idx) => (
-                      <span
-                        key={`${x}-${idx}`}
-                        className="text-sm sm:text-base lg:text-lg font-bold text-slate-300 hover:text-slate-400 transition-colors cursor-default"
-                      >
-                        {x}
-                      </span>
-                    ))}
+                  <button
+                    type="button"
+                    className="group inline-flex items-center justify-center gap-2 rounded-xl sm:rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-sm px-6 sm:px-8 py-3.5 sm:py-4 text-sm font-semibold text-slate-700 hover:bg-white hover:border-slate-300 hover:shadow-lg transition-all duration-300 w-full sm:w-auto"
+                  >
+                    <div className="h-6 w-6 rounded-full bg-indigo-50 flex items-center justify-center group-hover:bg-indigo-100 transition-colors">
+                      <Play className="h-3 w-3 text-indigo-600 fill-indigo-600" />
+                    </div>
+                    {data.secondaryCta}
+                  </button>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delay={0.4} width="100%">
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 sm:gap-x-6 lg:gap-x-8 gap-y-2 sm:gap-y-3 pt-4 text-xs sm:text-sm text-slate-500">
+                  {["No Credit Card Required", "14-Day Free Trial", "Cancel Anytime"].map((item, i) => (
+                    <div
+                      key={item}
+                      className="inline-flex items-center gap-1.5 sm:gap-2"
+                    >
+                      <CheckCircle2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-500 flex-shrink-0" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delay={0.5} width="100%">
+                <div className="pt-6 sm:pt-8 border-t border-slate-100">
+                  <div className="text-xs font-semibold tracking-wider text-slate-400 uppercase mb-3 sm:mb-4">Trusted By Industry Leaders</div>
+                  <div className="w-full">
+                    <div className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 lg:gap-8">
+                      {data.logoCloud.map((x, idx) => (
+                        <span
+                          key={`${x}-${idx}`}
+                          className="text-sm sm:text-base lg:text-lg font-bold text-slate-300 hover:text-slate-400 transition-colors cursor-default"
+                        >
+                          {x}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
+              </ScrollReveal>
             </div>
           </div>
         </div>
@@ -490,59 +487,53 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-indigo-900/40 via-slate-950 to-slate-950" />
 
         <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10 mb-16 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-2 text-sm text-white/90 shadow-sm mb-6"
-          >
-            <Award className="h-4 w-4 text-indigo-400" />
-            <span>World-Class Performance</span>
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl lg:text-5xl font-bold tracking-tight mb-6"
-          >
-            Trusted By <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Industry Leaders</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-lg text-slate-300 max-w-2xl mx-auto"
-          >
-            Our platform is engineered for speed, reliability, and scale. Deploy in minutes, not months.
-          </motion.p>
+          <ScrollReveal width="100%">
+            <div className="flex justify-center mb-6">
+              <div
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-2 text-sm text-white/90 shadow-sm"
+              >
+                <Award className="h-4 w-4 text-indigo-400" />
+                <span>World-Class Performance</span>
+              </div>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal width="100%" delay={0.1}>
+            <h2
+              className="text-3xl lg:text-5xl font-bold tracking-tight mb-6"
+            >
+              Trusted By <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Industry Leaders</span>
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal width="100%" delay={0.2}>
+            <p
+              className="text-lg text-slate-300 max-w-2xl mx-auto"
+            >
+              Our platform is engineered for speed, reliability, and scale. Deploy in minutes, not months.
+            </p>
+          </ScrollReveal>
         </div>
 
         <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
             {data.kpis.map((k, idx) => (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1, duration: 0.5 }}
-                key={k.label}
-                whileHover={{ y: -5, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)" }}
-                className="group relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 lg:p-8 transition-all duration-300 hover:bg-white/10"
-              >
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-
-                <div
-                  className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${k.color} mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}
+              <ScrollReveal key={k.label} delay={idx * 0.1} width="100%">
+                <motion.div
+                  whileHover={{ y: -5, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)" }}
+                  className="group relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 lg:p-8 transition-all duration-300 hover:bg-white/10 h-full"
                 >
-                  <k.icon className="h-6 w-6 text-white" />
-                </div>
-                <div className="text-3xl lg:text-4xl font-bold tracking-tight text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-purple-400 transition-all duration-300">
-                  {k.value}
-                </div>
-                <div className="text-sm font-medium text-slate-400 mt-2">{k.label}</div>
-              </motion.div>
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+
+                  <div
+                    className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${k.color} mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    <k.icon className="h-6 w-6 text-white" />
+                  </div>
+                  <div className="text-3xl lg:text-4xl font-bold tracking-tight text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-purple-400 transition-all duration-300">
+                    {k.value}
+                  </div>
+                  <div className="text-sm font-medium text-slate-400 mt-2">{k.label}</div>
+                </motion.div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -555,37 +546,32 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
         <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12 lg:mb-16">
             <div className="max-w-3xl">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50/50 px-4 py-1.5 text-sm font-semibold text-indigo-700 mb-6"
-              >
-                <Zap className="h-4 w-4" />
-                Modular Suite, One Data Model
-              </motion.div>
+              <ScrollReveal>
+                <div
+                  className="inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50/50 px-4 py-1.5 text-sm font-semibold text-indigo-700 mb-6"
+                >
+                  <Zap className="h-4 w-4" />
+                  Modular Suite, One Data Model
+                </div>
+              </ScrollReveal>
 
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight text-slate-900"
-              >
-                Everything HR needs, <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
-                  designed to work together.
-                </span>
-              </motion.h2>
-              <motion.p
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="mt-6 text-xl text-slate-600 max-w-2xl leading-relaxed"
-              >
-                Adopt a single module or run the full suite. Every module shares the same governance, reporting, and user experience.
-              </motion.p>
+              <ScrollReveal delay={0.1}>
+                <h2
+                  className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-tight text-slate-900"
+                >
+                  Everything HR needs, <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
+                    designed to work together.
+                  </span>
+                </h2>
+              </ScrollReveal>
+              <ScrollReveal delay={0.2}>
+                <p
+                  className="mt-6 text-xl text-slate-600 max-w-2xl leading-relaxed"
+                >
+                  Adopt a single module or run the full suite. Every module shares the same governance, reporting, and user experience.
+                </p>
+              </ScrollReveal>
             </div>
 
             <motion.div
@@ -626,43 +612,40 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {group.items.map((m, idx) => (
-                    <motion.div
-                      key={m.title}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-50px" }}
-                      transition={{ delay: idx * 0.1 }}
-                      whileHover={{ y: -8, scale: 1.01 }}
-                      className="group relative rounded-3xl border border-slate-100 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10 hover:border-indigo-100"
-                    >
-                      <div className={`absolute inset-0 bg-gradient-to-br ${m.gradient} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-300 rounded-3xl`} />
-
-                      <div className="relative flex items-start justify-between gap-4 mb-6">
-                        <div
-                          className={`h-14 w-14 rounded-2xl bg-gradient-to-br ${m.gradient} text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}
-                        >
-                          <m.icon className="h-7 w-7" />
-                        </div>
-                        <span className="rounded-full border border-slate-100 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-600 tracking-wide">{m.tag}</span>
-                      </div>
-
-                      <div className="relative">
-                        <div className="text-xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">{m.title}</div>
-                        <p className="text-base text-slate-600 leading-relaxed mb-6">{m.description}</p>
-                      </div>
-
-                      <motion.button
-                        whileHover={{ x: 5 }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onNavigate(m.productId);
-                        }}
-                        className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors"
+                    <ScrollReveal key={m.title} delay={idx * 0.1} width="100%">
+                      <motion.div
+                        whileHover={{ y: -8, scale: 1.01 }}
+                        className="group relative rounded-3xl border border-slate-100 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10 hover:border-indigo-100 h-full"
                       >
-                        Explore Module
-                        <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-indigo-600 transition-colors" />
-                      </motion.button>
-                    </motion.div>
+                        <div className={`absolute inset-0 bg-gradient-to-br ${m.gradient} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-300 rounded-3xl`} />
+
+                        <div className="relative flex items-start justify-between gap-4 mb-6">
+                          <div
+                            className={`h-14 w-14 rounded-2xl bg-gradient-to-br ${m.gradient} text-white flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}
+                          >
+                            <m.icon className="h-7 w-7" />
+                          </div>
+                          <span className="rounded-full border border-slate-100 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-600 tracking-wide">{m.tag}</span>
+                        </div>
+
+                        <div className="relative">
+                          <div className="text-xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">{m.title}</div>
+                          <p className="text-base text-slate-600 leading-relaxed mb-6">{m.description}</p>
+                        </div>
+
+                        <motion.button
+                          whileHover={{ x: 5 }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onNavigate(m.productId);
+                          }}
+                          className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors mt-auto"
+                        >
+                          Explore Module
+                          <ChevronRight className="h-4 w-4 text-slate-400 group-hover:text-indigo-600 transition-colors" />
+                        </motion.button>
+                      </motion.div>
+                    </ScrollReveal>
                   ))}
                 </div>
               </div>
@@ -678,78 +661,69 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-blue-900/40 via-slate-950 to-slate-950" />
         <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-2 text-sm text-white/90 shadow-sm mb-6">
-                <Sparkles className="h-4 w-4 text-indigo-400" />
-                <span>Outcomes That Compound</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
-                Cleaner Operations, <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
-                  Better Decisions.
-                </span>
-              </h2>
-              <p className="text-lg text-slate-300 leading-relaxed max-w-xl">
-                The suite is built around a shared data model. That means every update to headcount, skills, hiring, or compliance is reflected across dashboards
-                and workflows instantly.
-              </p>
+            <div className="flex flex-col h-full justify-center">
+              <ScrollReveal>
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-4 py-2 text-sm text-white/90 shadow-sm mb-6">
+                  <Sparkles className="h-4 w-4 text-indigo-400" />
+                  <span>Outcomes That Compound</span>
+                </div>
+              </ScrollReveal>
+              <ScrollReveal delay={0.1}>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
+                  Cleaner Operations, <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
+                    Better Decisions.
+                  </span>
+                </h2>
+              </ScrollReveal>
+              <ScrollReveal delay={0.2}>
+                <p className="text-lg text-slate-300 leading-relaxed max-w-xl">
+                  The suite is built around a shared data model. That means every update to headcount, skills, hiring, or compliance is reflected across dashboards
+                  and workflows instantly.
+                </p>
+              </ScrollReveal>
 
               <div className="mt-10 grid gap-4">
                 {data.benefits.map((b, idx) => (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.1 }}
-                    key={b}
-                    className="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5"
-                  >
-                    <div className="mt-1 h-5 w-5 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                    </div>
-                    <div className="text-base text-slate-300 leading-relaxed">{b}</div>
-                  </motion.div>
+                  <ScrollReveal key={b} delay={0.3 + idx * 0.1}>
+                    <motion.div
+                      className="flex items-start gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5"
+                    >
+                      <div className="mt-1 h-5 w-5 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+                      </div>
+                      <div className="text-base text-slate-300 leading-relaxed">{b}</div>
+                    </motion.div>
+                  </ScrollReveal>
                 ))}
               </div>
-            </motion.div>
+            </div>
 
             <div className="grid gap-6">
               {data.outcomes.map((o, idx) => (
-                <motion.div
-                  key={o.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.15 }}
-                  whileHover={{ scale: 1.02 }}
-                  className="group relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 hover:bg-white/10 transition-all duration-300"
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${o.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-3xl`} />
-                  <div className="flex items-start justify-between gap-4 mb-4">
-                    <div
-                      className={`h-12 w-12 rounded-xl bg-gradient-to-br ${o.gradient} flex items-center justify-center shadow-lg`}
-                    >
-                      <o.icon className="h-6 w-6 text-white" />
+                <ScrollReveal key={o.title} delay={idx * 0.1} width="100%">
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="group relative rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 hover:bg-white/10 transition-all duration-300"
+                  >
+                    <div className={`absolute inset-0 bg-gradient-to-br ${o.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-3xl`} />
+                    <div className="flex items-start justify-between gap-4 mb-4">
+                      <div
+                        className={`h-12 w-12 rounded-xl bg-gradient-to-br ${o.gradient} flex items-center justify-center shadow-lg`}
+                      >
+                        <o.icon className="h-6 w-6 text-white" />
+                      </div>
+                      <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-white/80">{o.metric}</span>
                     </div>
-                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-white/80">{o.metric}</span>
-                  </div>
-                  <div className="relative">
-                    <div className="text-xl font-bold text-white mb-2">{o.title}</div>
-                    <p className="text-sm text-slate-400 leading-relaxed">{o.description}</p>
-                  </div>
-                </motion.div>
+                    <div className="relative">
+                      <div className="text-xl font-bold text-white mb-2">{o.title}</div>
+                      <p className="text-sm text-slate-400 leading-relaxed">{o.description}</p>
+                    </div>
+                  </motion.div>
+                </ScrollReveal>
               ))}
 
               <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.6 }}
                 className="rounded-3xl border border-white/10 bg-gradient-to-br from-indigo-900/20 to-purple-900/20 backdrop-blur-xl p-8 mt-4"
               >
                 <div className="text-sm font-semibold text-indigo-300 mb-4 uppercase tracking-wider">In Practice</div>
@@ -776,61 +750,62 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
       >
         <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50 px-4 py-2 text-sm text-emerald-700 shadow-sm mb-6">
-                <ShieldCheck className="h-4 w-4" />
-                <span>Security And Governance By Design</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-6">
-                Built For Serious <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">
-                  HR Data Protection.
-                </span>
-              </h2>
-              <p className="text-lg text-slate-600 leading-relaxed max-w-xl mb-8">
-                Protect employee information with strong access controls, encryption, auditability, and resilient backup policies. Operate confidently across
-                departments and entities.
-              </p>
+            <div className="flex flex-col h-full justify-center">
+              <ScrollReveal>
+                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50 px-4 py-2 text-sm text-emerald-700 shadow-sm mb-6">
+                  <ShieldCheck className="h-4 w-4" />
+                  <span>Security And Governance By Design</span>
+                </div>
+              </ScrollReveal>
+              <ScrollReveal delay={0.1}>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-6">
+                  Built For Serious <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">
+                    HR Data Protection.
+                  </span>
+                </h2>
+              </ScrollReveal>
+              <ScrollReveal delay={0.2}>
+                <p className="text-lg text-slate-600 leading-relaxed max-w-xl mb-8">
+                  Protect employee information with strong access controls, encryption, auditability, and resilient backup policies. Operate confidently across
+                  departments and entities.
+                </p>
+              </ScrollReveal>
 
-              <div className="bg-slate-50 border border-slate-200 rounded-3xl p-8">
-                <div className="text-slate-900 font-bold mb-4 flex items-center gap-2">
-                  <Lock className="h-5 w-5 text-slate-400" />
-                  Security Check
+              <ScrollReveal delay={0.3}>
+                <div className="bg-slate-50 border border-slate-200 rounded-3xl p-8">
+                  <div className="text-slate-900 font-bold mb-4 flex items-center gap-2">
+                    <Lock className="h-5 w-5 text-slate-400" />
+                    Security Check
+                  </div>
+                  <div className="space-y-3">
+                    {["Role-based permissions", "Audit logs & traceability", "Retention policies", "Encryption in transit/at rest"].map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-3">
+                        <CheckCircle2 className="h-5 w-5 text-emerald-500" />
+                        <span className="text-slate-700 font-medium">{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="space-y-3">
-                  {["Role-based permissions", "Audit logs & traceability", "Retention policies", "Encryption in transit/at rest"].map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-emerald-500" />
-                      <span className="text-slate-700 font-medium">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+              </ScrollReveal>
+            </div>
 
             <div className="grid sm:grid-cols-2 gap-6">
               {data.security.map((s, idx) => (
-                <motion.div
-                  key={s.title}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                  whileHover={{ y: -5 }}
-                  className="group rounded-3xl border border-slate-100 bg-white p-8 shadow-sm hover:shadow-xl hover:shadow-slate-200/50 hover:border-slate-200 transition-all duration-300"
-                >
-                  <div
-                    className={`h-12 w-12 rounded-xl bg-gradient-to-br ${s.gradient} text-white flex items-center justify-center shadow-md mb-6 icon-rotate`}
+                <ScrollReveal key={s.title} delay={idx * 0.1} width="100%">
+                  <motion.div
+                    whileHover={{ y: -5 }}
+                    className="group rounded-3xl border border-slate-100 bg-white p-8 shadow-sm hover:shadow-xl hover:shadow-slate-200/50 hover:border-slate-200 transition-all duration-300 h-full"
                   >
-                    <s.icon className="h-6 w-6" />
-                  </div>
-                  <div className="text-lg font-bold text-slate-900 mb-2">{s.title}</div>
-                  <p className="text-sm text-slate-500 leading-relaxed">{s.note}</p>
-                </motion.div>
+                    <div
+                      className={`h-12 w-12 rounded-xl bg-gradient-to-br ${s.gradient} text-white flex items-center justify-center shadow-md mb-6 icon-rotate`}
+                    >
+                      <s.icon className="h-6 w-6" />
+                    </div>
+                    <div className="text-lg font-bold text-slate-900 mb-2">{s.title}</div>
+                    <p className="text-sm text-slate-500 leading-relaxed">{s.note}</p>
+                  </motion.div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -843,89 +818,83 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
       >
         <div className="mx-auto max-w-7xl px-5 lg:px-8 relative z-10">
           <div className="text-center mb-16 max-w-3xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white px-4 py-1.5 text-sm font-semibold text-indigo-700 shadow-sm mb-6"
-            >
-              <BarChart3 className="h-4 w-4" />
-              Simple Plans That Scale
-            </motion.div>
-            <motion.h2
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-6"
-            >
-              Start small, <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
-                scale infinitely.
-              </span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-lg text-slate-600"
-            >
-              Transparent pricing for every stage of your company's growth.
-            </motion.p>
+            <ScrollReveal width="100%">
+              <div className="flex justify-center mb-6">
+                <div
+                  className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white px-4 py-1.5 text-sm font-semibold text-indigo-700 shadow-sm"
+                >
+                  <BarChart3 className="h-4 w-4" />
+                  Simple Plans That Scale
+                </div>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal width="100%" delay={0.1}>
+              <h2
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-6"
+              >
+                Start small, <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
+                  scale infinitely.
+                </span>
+              </h2>
+            </ScrollReveal>
+            <ScrollReveal width="100%" delay={0.2}>
+              <p
+                className="text-lg text-slate-600"
+              >
+                Transparent pricing for every stage of your company's growth.
+              </p>
+            </ScrollReveal>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
             {data.pricing.map((p, idx) => (
-              <motion.div
-                key={p.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                whileHover={{ y: -8 }}
-                className={`relative rounded-3xl p-8 transition-all duration-300 ${p.featured
-                  ? "bg-slate-900 text-white shadow-2xl shadow-indigo-500/20 ring-1 ring-white/10"
-                  : "bg-white text-slate-900 border border-slate-200 shadow-lg"
-                  }`}
-              >
-                {p.featured && (
-                  <div className="absolute top-0 right-0 p-4">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 px-3 py-1 text-xs font-semibold text-indigo-300">
-                      <Sparkles className="h-3 w-3" /> Popular
-                    </span>
-                  </div>
-                )}
-
-                <h3 className="text-xl font-bold mb-2">{p.name}</h3>
-                <p className={`text-sm mb-6 ${p.featured ? "text-slate-400" : "text-slate-500"}`}>{p.blurb}</p>
-
-                <div className="flex items-baseline gap-1 mb-6">
-                  <span className="text-4xl font-bold tracking-tight">{p.price}</span>
-                  {p.period && <span className={`text-sm ${p.featured ? "text-slate-500" : "text-slate-400"}`}>{p.period}</span>}
-                </div>
-
-                <div className="space-y-4 mb-8">
-                  {p.highlights.map((h) => (
-                    <div key={h} className="flex items-start gap-3 text-sm">
-                      <CheckCircle2 className={`h-5 w-5 shrink-0 ${p.featured ? "text-indigo-400" : "text-indigo-600"}`} />
-                      <span className={p.featured ? "text-slate-300" : "text-slate-600"}>{h}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={p.name === "Enterprise" ? undefined : onGetStarted}
-                  className={`w-full py-3 rounded-xl font-bold text-sm transition-colors ${p.featured
-                    ? "bg-indigo-600 text-white hover:bg-indigo-500"
-                    : "bg-slate-50 text-slate-900 hover:bg-slate-100 border border-slate-200"
+              <ScrollReveal key={p.name} delay={idx * 0.1} width="100%">
+                <motion.div
+                  whileHover={{ y: -8 }}
+                  className={`relative rounded-3xl p-8 transition-all duration-300 h-full flex flex-col ${p.featured
+                    ? "bg-slate-900 text-white shadow-2xl shadow-indigo-500/20 ring-1 ring-white/10"
+                    : "bg-white text-slate-900 border border-slate-200 shadow-lg"
                     }`}
                 >
-                  {p.cta}
-                </motion.button>
-              </motion.div>
+                  {p.featured && (
+                    <div className="absolute top-0 right-0 p-4">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 px-3 py-1 text-xs font-semibold text-indigo-300">
+                        <Sparkles className="h-3 w-3" /> Popular
+                      </span>
+                    </div>
+                  )}
+
+                  <h3 className="text-xl font-bold mb-2">{p.name}</h3>
+                  <p className={`text-sm mb-6 ${p.featured ? "text-slate-400" : "text-slate-500"}`}>{p.blurb}</p>
+
+                  <div className="flex items-baseline gap-1 mb-6">
+                    <span className="text-4xl font-bold tracking-tight">{p.price}</span>
+                    {p.period && <span className={`text-sm ${p.featured ? "text-slate-500" : "text-slate-400"}`}>{p.period}</span>}
+                  </div>
+
+                  <div className="space-y-4 mb-8 flex-grow">
+                    {p.highlights.map((h) => (
+                      <div key={h} className="flex items-start gap-3 text-sm">
+                        <CheckCircle2 className={`h-5 w-5 shrink-0 ${p.featured ? "text-indigo-400" : "text-indigo-600"}`} />
+                        <span className={p.featured ? "text-slate-300" : "text-slate-600"}>{h}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={p.name === "Enterprise" ? undefined : onGetStarted}
+                    className={`w-full py-3 rounded-xl font-bold text-sm transition-colors mt-auto ${p.featured
+                      ? "bg-indigo-600 text-white hover:bg-indigo-500"
+                      : "bg-slate-50 text-slate-900 hover:bg-slate-100 border border-slate-200"
+                      }`}
+                  >
+                    {p.cta}
+                  </motion.button>
+                </motion.div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -938,21 +907,29 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-24">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-sm font-semibold text-slate-700 shadow-sm mb-6">
-                <LifeBuoy className="h-4 w-4 text-slate-500" />
-                <span>Support</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-6">
-                Frequently Asked <br /> Questions
-              </h2>
-              <p className="text-lg text-slate-600">
-                Can't find the answer you're looking for? Reach out to our support team.
-              </p>
+              <ScrollReveal>
+                <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-sm font-semibold text-slate-700 shadow-sm mb-6">
+                  <LifeBuoy className="h-4 w-4 text-slate-500" />
+                  <span>Support</span>
+                </div>
+              </ScrollReveal>
+              <ScrollReveal delay={0.1}>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-6">
+                  Frequently Asked <br /> Questions
+                </h2>
+              </ScrollReveal>
+              <ScrollReveal delay={0.2}>
+                <p className="text-lg text-slate-600">
+                  Can't find the answer you're looking for? Reach out to our support team.
+                </p>
+              </ScrollReveal>
             </div>
 
             <div className="space-y-4">
               {data.faqs.map((f, idx) => (
-                <FaqItem key={idx} q={f.q} a={f.a} delay={idx * 0.1} />
+                <ScrollReveal key={idx} delay={0.3 + idx * 0.1}>
+                  <FaqItem q={f.q} a={f.a} />
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -961,6 +938,7 @@ export function LandingPage({ onGetStarted, onNavigate }: LandingPageProps) {
 
       {/* Legacy styles removed, using Tailwind + Motion */}
     </div >
+
   );
 }
 
@@ -970,10 +948,6 @@ function FaqItem({ q, a, delay = 0 }: { q: string; a: string; delay?: number }) 
   const [open, setOpen] = useState(false);
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay }}
       className="border-b border-slate-100"
     >
       <button

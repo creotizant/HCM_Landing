@@ -1,19 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Navbar } from '@/app/components/Navbar';
 import { Footer } from '@/app/components/Footer';
-import { Homepage } from '@/app/pages/Homepage';
-import { Products } from '@/app/pages/Products';
-import { Solutions } from '@/app/pages/Solutions';
-import { Industries } from '@/app/pages/Industries';
-import { Platform } from '@/app/pages/Platform';
-import { Why } from '@/app/pages/Why';
-import { Resources } from '@/app/pages/Resources';
-import { Pricing } from '@/app/pages/Pricing';
-import { RequestDemo } from '@/app/pages/RequestDemo';
-import { ProductDetail } from '@/app/pages/ProductDetail';
-import { ContactUs } from '@/app/pages/ContactUs';
-import { productsData } from '@/app/data/products';
 import { initEmailJS } from '@/app/lib/emailjs';
+import { productsData } from '@/app/data/products';
+
+import { Homepage } from '@/app/pages/Homepage';
+
+// Lazy load other pages for better performance
+const Products = lazy(() => import('@/app/pages/Products').then(m => ({ default: m.Products })));
+const Solutions = lazy(() => import('@/app/pages/Solutions').then(m => ({ default: m.Solutions })));
+const Industries = lazy(() => import('@/app/pages/Industries').then(m => ({ default: m.Industries })));
+const Platform = lazy(() => import('@/app/pages/Platform').then(m => ({ default: m.Platform })));
+const Why = lazy(() => import('@/app/pages/Why').then(m => ({ default: m.Why })));
+const Resources = lazy(() => import('@/app/pages/Resources').then(m => ({ default: m.Resources })));
+const Pricing = lazy(() => import('@/app/pages/Pricing').then(m => ({ default: m.Pricing })));
+const RequestDemo = lazy(() => import('@/app/pages/RequestDemo').then(m => ({ default: m.RequestDemo })));
+const ProductDetail = lazy(() => import('@/app/pages/ProductDetail').then(m => ({ default: m.ProductDetail })));
+const ContactUs = lazy(() => import('@/app/pages/ContactUs').then(m => ({ default: m.ContactUs })));
+
+// Disable visible loading states to prevent flickering as requested
+const PageLoader = () => null;
+
 
 // Helper type to include product IDs
 type Page = 'home' | 'products' | 'solutions' | 'industries' | 'platform' | 'why' | 'resources' | 'pricing' | 'demo' | 'contact' | string;
@@ -67,7 +74,9 @@ export default function App() {
     <div className="min-h-screen bg-white font-sans text-slate-900 selection:bg-indigo-100 selection:text-indigo-900">
       <Navbar currentPage={currentPage} onNavigate={setCurrentPage} />
       <main>
-        {renderPage()}
+        <Suspense fallback={<PageLoader />}>
+          {renderPage()}
+        </Suspense>
       </main>
       <Footer onNavigate={setCurrentPage} />
     </div>
